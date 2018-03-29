@@ -3,7 +3,7 @@ from random import randint
 
 def game(r1, r2):
     x = randint(r1, r2)
-    print("The guessed number is ", x)
+    #print("The guessed number is ", x)
     num = input("Enter a number: ")
     while int(num) != x:
         print("Try again!")
