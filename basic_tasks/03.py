@@ -1,6 +1,5 @@
 def reverse(x):
-    x = "".join(list(x)[::-1])
-    return x
+    return x[::-1]
 
 
 print(reverse("I am testing"))

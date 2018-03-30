@@ -1,5 +1,5 @@
 def isPalindrome(_str):
-    return _str == "".join(list(_str)[::-1])
+    return _str == _str[::-1]
 
 
 print(isPalindrome("radar"))
