@@ -16,18 +16,18 @@ def coord_list(order):
 def game(order):
     mx = rand_matrix(order)
     shot_mx = [[0 for col in range(order)] for row in range(order)]
-    xy = coord_list(order)
-    shot_mx[xy[0]][xy[1]] = 8
-    pprint(shot_mx, width=3*order+2)
-    while mx[xy[0]][xy[1]] != 1:
-        print("\nTry again!")
+
+    while True:
         xy = coord_list(order)
         shot_mx[xy[0]][xy[1]] = 8
+        if mx[xy[0]][xy[1]] == 1:
+            break
         pprint(shot_mx, width=3 * order + 2)
+
     shot_mx[xy[0]][xy[1]] = 1
     print('\nGreat!!!\n')
     pprint(shot_mx, width=3 * order + 2)
-    print("You won, you are the best!!!")
+    print("\nYou won, you are the best!!!")
 
 
 game(2)
