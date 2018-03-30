@@ -8,7 +8,7 @@ def caesarCipher(_str, _key):
         return "The '_key' value must be in range -99...99"
 
     # create the encoded alphabetical string
-    enc_str = "".join(list(printable)[_key:] + list(printable)[:_key])
+    enc_str = printable[_key:] + printable[:_key]
 
     # create Caesar dictionary
     _dict = dict(zip(list(printable), list(enc_str)))
