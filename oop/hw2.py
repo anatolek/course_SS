@@ -1,6 +1,5 @@
 # create a class Employee
 class Employee(object):
-
     def __init__(self, fname, sname, salary, experiance):
         self.fname = fname
         self.sname = sname
@@ -13,16 +12,18 @@ class Employee(object):
         elif self.experiance > 5:
             return self.salary*1.2 + 500
 
+    def __repr__(self):
+        #return '{} {}, manager:{}, experiance: {}'.format(self.fname, self.sname, self.experiance)
+        return '{} {}, experiance: {}'.format(self.fname, self.sname, self.experiance)
+
 
 class Developer(Employee):
-
     def __init__(self, fname, sname, salary, experiance, manager):
         Employee.__init__(self, fname, sname, salary, experiance)
         self.manager = manager
 
 
 class Designer(Employee):
-
     def __init__(self, fname, sname, salary, experiance, manager, effCoeff):
         Employee.__init__(self, fname, sname, salary, experiance)
         self.manager = manager
@@ -33,7 +34,6 @@ class Designer(Employee):
 
 
 class Manager(Employee):
-
     def __init__(self, fname, sname, salary, experiance, manager, members):
         Employee.__init__(self, fname, sname, salary, experiance)
         #self.manager = manager
@@ -44,8 +44,8 @@ class Manager(Employee):
             self.salary += 200
         elif self.members > 10:
             self.salary += 300
-            # if self.members//2+1 > developers:
-            #     self.salary *= 1.1
+            # if self.members//2 < developers:
+            #     return self.salary * 1.1
 
 
 class Department(object):
