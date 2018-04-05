@@ -51,7 +51,7 @@ class Manager(Employee):
         self.members = {'num_members': 0}
 
     def add_member(self, *workers):
-        """Create dictionary members =>
+        """Creating members dictionary =>
         {@name of the first class of employees@: [member1, member2, ...],
         @name of the second class of employees@: [member1, member2, ...],
         ...,
