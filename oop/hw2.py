@@ -32,10 +32,17 @@ class Employee(object):
         else:
             return float(self.salary)
 
+    def attach_manager(self, name_manager):
+        self.manager = name_manager
+        return self.manager
+
     def __repr__(self):
         """Representation in the form
         '@firstName@ @secondName@, manager:@manager secondName@, experiance:@experiance@'"""
-        return '{} {}, manager: {}, experiance: {}'.format(self.fname, self.sname, self.manager, self.experiance)
+        if self.manager:
+            return '{} {}, manager: {}, experiance: {}'.format(self.fname, self.sname, self.manager, self.experiance)
+        else:
+            return '{} {}, experiance: {}'.format(self.fname, self.sname, self.experiance)
 
 
 class Manager(Employee):
@@ -50,6 +57,7 @@ class Manager(Employee):
         ...,
         'num_members': @number of members@}"""
         for i in workers:
+            i.attach_manager(self.sname)
             _cls = i.__class__.__name__
             if self.members.__contains__(_cls):
                 self.members[_cls].append(i)
@@ -81,6 +89,9 @@ class Developer(Employee):
     def get_salary(self):
         return Employee.get_salary(self)
 
+    def attach_manager(self, name_manager):
+        return Employee.attach_manager(self, name_manager)
+
 
 class Designer(Employee):
     """Each designer has a manager.
@@ -92,12 +103,16 @@ class Designer(Employee):
     def get_salary(self):
         return Employee.get_salary(self) * self.effCoeff
 
+    def attach_manager(self, name_manager):
+        return Employee.attach_manager(self, name_manager)
+
 
 # ------ TESTING ------ #
 des_tony = Designer('Tony', 'Gold', 500, 1, .9)
 dev_mark = Developer('Mark', 'Silver', 1000, 2)
 dev_mina = Developer('Mina', 'Iron', 3000, 6)
 man_tina = Manager('Tina', 'Stone', 1200, 3)
+
 
 # add employees to manager team
 man_tina.add_member(des_tony, dev_mark, dev_mina)
@@ -122,3 +137,6 @@ print("")
 
 # representation
 print(des_tony)
+print(dev_mark)
+print(dev_mina)
+print(man_tina)
