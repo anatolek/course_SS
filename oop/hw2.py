@@ -32,8 +32,8 @@ class Employee(object):
         else:
             return float(self.salary)
 
-    def attach_manager(self, name_manager):
-        self.manager = name_manager
+    def attach_manager(self, sname_manager):
+        self.manager = sname_manager
         return self.manager
 
     def __repr__(self):
@@ -57,6 +57,7 @@ class Manager(Employee):
         ...,
         'num_members': @number of members@}"""
         for i in workers:
+            # Attach manager to employee
             i.attach_manager(self.sname)
             _cls = i.__class__.__name__
             if self.members.__contains__(_cls):
@@ -89,8 +90,8 @@ class Developer(Employee):
     def get_salary(self):
         return Employee.get_salary(self)
 
-    def attach_manager(self, name_manager):
-        return Employee.attach_manager(self, name_manager)
+    def attach_manager(self, sname_manager):
+        return Employee.attach_manager(self, sname_manager)
 
 
 class Designer(Employee):
@@ -103,8 +104,8 @@ class Designer(Employee):
     def get_salary(self):
         return Employee.get_salary(self) * self.effCoeff
 
-    def attach_manager(self, name_manager):
-        return Employee.attach_manager(self, name_manager)
+    def attach_manager(self, sname_manager):
+        return Employee.attach_manager(self, sname_manager)
 
 
 # ------ TESTING ------ #
@@ -114,10 +115,10 @@ dev_mina = Developer('Mina', 'Iron', 3000, 6)
 man_tina = Manager('Tina', 'Stone', 1200, 3)
 
 
-# add employees to manager team
+# add employees to the manager team
 man_tina.add_member(des_tony, dev_mark, dev_mina)
 
-# add managers to department
+# add managers to the department
 ss = Department('SoftServe')
 ss.add_manager(man_tina)
 
