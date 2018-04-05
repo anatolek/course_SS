@@ -14,7 +14,7 @@ class Department(object):
 
 
 class Employee(object):
-    def __init__(self, fname, sname, salary=500., experiance=0):
+    def __init__(self, fname, sname, salary=500., experiance=0.):
         """Each employee must have a first and a second name.
         The minimum salary in the company is 500$."""
         self.fname = fname
@@ -58,20 +58,19 @@ class Manager(Employee):
             self.members['num_members'] += 1
 
     def get_salary(self):
-        self.salary = Employee.get_salary(self)
+        self.msalary = Employee.get_salary(self)
         """Each manager gets salary:
         200$ if his team has >5 members
         300$ if his team has >10 members"""
-        if len(self.members) > 5:
-            self.salary += 200
-        elif len(self.members) > 10:
-            self.salary += 300
+        if self.members['num_members'] > 10:
+            self.msalary += 300
+        elif self.members['num_members'] > 5:
+            self.msalary += 200
         """If more than half of team members are developers => salary*1.1"""
-        # {x for i in isinstance(self.mambers(i), Developer)}
-        if len(self.members)//2 < 5: # 5 have to be changed later
-            return self.salary * 1.1
+        if self.members['num_members']//2 < len(self.members['Developer']):
+            return self.msalary * 1.1
         else:
-            return self.salary
+            return self.msalary
 
 
 class Developer(Employee):
@@ -95,7 +94,7 @@ class Designer(Employee):
 
 
 # ------ TESTING ------ #
-des_tony = Designer('Tony', 'Gold', 500, 1, 0.9)
+des_tony = Designer('Tony', 'Gold', 500, 1, .9)
 dev_mark = Developer('Mark', 'Silver', 1000, 2)
 dev_mina = Developer('Mina', 'Iron', 3000, 6)
 man_tina = Manager('Tina', 'Stone', 1200, 3)
