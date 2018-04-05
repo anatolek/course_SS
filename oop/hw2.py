@@ -14,13 +14,14 @@ class Department(object):
 
 
 class Employee(object):
-    def __init__(self, fname, sname, salary=500., experiance=0.):
+    def __init__(self, fname, sname, salary=500., experiance=0., manager=None):
         """Each employee must have a first and a second name.
         The minimum salary in the company is 500$."""
         self.fname = fname
         self.sname = sname
         self.salary = salary
         self.experiance = experiance
+        self.manager = manager
 
     def get_salary(self):
         """If experiance is > 2 years => salary + 200$, > 5 years => salary*1.2 + 500$"""
@@ -34,8 +35,7 @@ class Employee(object):
     def __repr__(self):
         """Representation in the form
         '@firstName@ @secondName@, manager:@manager secondName@, experiance:@experiance@'"""
-        # return '{} {}, manager:{}, experiance: {}'.format(self.fname, self.sname, self.experiance)
-        return '{} {}, experiance: {}'.format(self.fname, self.sname, self.experiance)
+        return '{} {}, manager: {}, experiance: {}'.format(self.fname, self.sname, self.manager, self.experiance)
 
 
 class Manager(Employee):
@@ -111,9 +111,14 @@ print('Salary: {:.2f}'.format(des_tony.get_salary()))
 print('Salary: {:.2f}'.format(dev_mark.get_salary()))
 print('Salary: {:.2f}'.format(dev_mina.get_salary()))
 print('Salary: {:.2f}'.format(man_tina.get_salary()))
+print("")
 
 # department give a salary to each employee
 ss.give_salary(des_tony)
 ss.give_salary(dev_mark)
 ss.give_salary(dev_mina)
 ss.give_salary(man_tina)
+print("")
+
+# representation
+print(des_tony)
