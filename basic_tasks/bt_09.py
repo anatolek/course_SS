@@ -13,13 +13,3 @@ def close_brackets(_str):
     if ok == 0:
         return "OK"
     return "NOT OK"
-
-
-# OK
-print(close_brackets("[]"))
-print(close_brackets("[][]"))
-print(close_brackets("[[][]]"))
-# NOT OK
-print(close_brackets("]["))
-print(close_brackets("][]["))
-print(close_brackets("[]][[]"))

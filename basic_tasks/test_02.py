@@ -4,6 +4,9 @@ from bt_02 import _sum, _multiply
 
 class MyTestCase(unittest.TestCase):
     def setUp(self):
+        self.x = [1, 2, 3, 4]
+        self.sum_x = 10
+        self.mult_x = 24
         print("Start of the test")
 
     def tearDown(self):
@@ -11,11 +14,11 @@ class MyTestCase(unittest.TestCase):
 
     def test_sum(self):
         """Sum of two numbers"""
-        self.assertEqual(_sum([1, 2, 3, 4]), 100)
+        self.assertEqual(_sum(self.x), self.sum_x)
 
     def test_multiply(self):
         """Multiplication of two numbers"""
-        self.assertEqual(_multiply([1, 2, 3, 4]), 24)
+        self.assertEqual(_multiply(self.x), self.mult_x)
 
 
 if __name__ == '__main__':

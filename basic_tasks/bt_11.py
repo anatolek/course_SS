@@ -7,6 +7,3 @@ def decToBin(_num):
             _bin += "1"
         _num //= 2
     return _bin
-
-
-print(decToBin(174))

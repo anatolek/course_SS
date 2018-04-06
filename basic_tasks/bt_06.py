@@ -18,6 +18,3 @@ def caesarCipher(_str, _key):
         j = j+_dict[i]
 
     return j
-
-
-print(caesarCipher("My name is Anatolii", 7))
