@@ -10,7 +10,3 @@ def _multiply(arr):
     for i in arr:
         j = i * j
     return j
-
-
-print(_sum([1, 2, 3, 4]))
-print(_multiply([1, 2, 3, 4]))
