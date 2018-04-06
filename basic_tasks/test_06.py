@@ -9,10 +9,10 @@ class MyTestCase(unittest.TestCase):
         self.key2 = 90
         self.encoded_str1 = "TF1uhtl1pz1HuhAvspp"
         self.encoded_str2 = "Co[d0c4[8i[qd0jeb88"
-        print("Start of the test")
+        print("Start of the test #6")
 
     def tearDown(self):
-        print("End of the test\n")
+        print("End of the test #6\n")
 
     def test_caesarCipher(self):
         """Create the encoded string"""

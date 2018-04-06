@@ -7,10 +7,10 @@ class MyTestCase(unittest.TestCase):
         self.x = [1, 2, 3, 4]
         self.sum_x = 10
         self.mult_x = 24
-        print("Start of the test")
+        print("Start of the test #2")
 
     def tearDown(self):
-        print("End of the test\n")
+        print("End of the test #2\n")
 
     def test_sum(self):
         """Sum of two numbers"""

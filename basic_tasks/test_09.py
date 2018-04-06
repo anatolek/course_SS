@@ -10,17 +10,17 @@ class MyTestCase(unittest.TestCase):
         self.not_ok1 = "]["
         self.not_ok2 = "][]["
         self.not_ok3 = "[]][[]"
-        print("Start of the test")
+        print("Start of the test #9")
 
     def tearDown(self):
-        print("End of the test\n")
+        print("End of the test #9\n")
 
     def test_close_brackets_ok(self):
         self.assertEqual(close_brackets(self.ok1), "OK")
         self.assertEqual(close_brackets(self.ok2), "OK")
         self.assertEqual(close_brackets(self.ok3), "OK")
 
-    def test_close_brackets_ok(self):
+    def test_close_brackets_notok(self):
         self.assertEqual(close_brackets(self.not_ok1), "NOT OK")
         self.assertEqual(close_brackets(self.not_ok2), "NOT OK")
         self.assertEqual(close_brackets(self.not_ok3), "NOT OK")

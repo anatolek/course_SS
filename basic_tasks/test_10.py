@@ -6,10 +6,10 @@ class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.str = "abbabcbdbabdbdbabababcbcbab"
         self.dict = {'a': 7, 'b': 14, 'c': 3, 'd': 3}
-        print("Start of the test")
+        print("Start of the test #10")
 
     def tearDown(self):
-        print("End of the test\n")
+        print("End of the test #10\n")
 
     def test_charFreq(self):
         self.assertDictEqual(charFreq(self.str), self.dict)

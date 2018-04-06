@@ -6,10 +6,10 @@ class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.i = "Tolik"
         self.hello = "Hello, Tolik!"
-        print("Start of the test")
+        print("Start of the test #1")
 
     def tearDown(self):
-        print("End of the test\n")
+        print("End of the test #1\n")
 
     def test_hello(self):
         """Hello somebody"""
