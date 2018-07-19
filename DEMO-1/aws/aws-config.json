@@ -1,0 +1,30 @@
+{
+    "access_key": "<---access_key--->",
+    "secret_key": "<---secret_key--->",
+    "instance_type": "t2.micro",
+    "keypair_name": "<---keypair_name--->",
+    "region": "eu-central-1",
+    "ami": "ami-7c412f13",
+    "subnet_id": "subnet-0bfcaf60",
+    "disk_size": "8",
+    "ssh_username": "ubuntu",
+    "ssh_private_key_path": "<---ssh_private_key_path--->",
+    "app": {
+        "security_groups": "sg-95c4acf8",
+        "private_ip": "10.0.10.10",
+        "playbook_path": "../ansible/app-playbook.yml",
+        "tags": {
+            "Name": "app",
+            "Role": "java application"
+        }
+    },
+    "db": {
+        "security_groups": "sg-3cc2aa51",
+        "private_ip": "10.0.10.11",
+        "playbook_path": "../ansible/db-playbook.yml",
+        "tags": {
+            "Name": "db",
+            "Role": "mysql server"
+        }
+    }
+}

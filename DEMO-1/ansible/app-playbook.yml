@@ -1,0 +1,132 @@
+---
+- hosts: all
+  name: Install application
+  become: yes
+  gather_facts: false
+
+  pre_tasks:
+      - name: Install Python 2.x
+        raw: test -e /usr/bin/python || (apt update && apt install -y python-simplejson)
+        register: output
+        changed_when: output.stdout != ""
+      - name: Gathering Facts
+        setup:
+
+  tasks:
+      - name: Create a non root user
+        user:
+          name: '{{ app_user }}'
+          password: '{{ app_pass }}'
+
+      - name: Create a project directory
+        file:
+          path: '/home/{{ app_user }}/{{ project_dir }}/'
+          state: directory
+          owner: '{{ app_user }}'
+          group: '{{ app_user }}'
+          mode: 0755
+        become_user: '{{ app_user }}'
+
+      - name: Clone a git repository
+        git:
+          repo: 'https://github.com/DmyMi/spring-petclinic.git'
+          dest: '/home/{{ app_user }}/{{ project_dir }}/'
+          clone: yes
+        become_user: '{{ app_user }}'
+
+      - name: Add Oracle's PPA
+        apt_repository:
+          repo: ppa:webupd8team/java
+
+      - name: Accept oracle license
+        debconf:
+          name: 'oracle-java8-installer'
+          question: 'shared/accepted-oracle-license-v1-1'
+          value: 'true'
+          vtype: 'select'
+
+      - name: Install git, Oracle JDK 8
+        apt: pkg={{ item }} state=present update_cache=yes cache_valid_time=3600
+        with_items:
+            - git
+            - oracle-java8-installer
+            - oracle-java8-set-default
+
+      - name: jar file search
+        find:
+          paths: '/home/{{ app_user }}/{{ project_dir }}/target/'
+          patterns: '*.jar'
+        register: jar
+        changed_when: jar.files == []
+
+      - name: Run maven script
+        shell: './mvnw package'
+        args:
+          chdir: '/home/{{ app_user }}/{{ project_dir }}/'
+        become_user: '{{ app_user }}'
+        register: mvnw
+        when: jar.changed
+
+      - name: jar file search again
+        find:
+          paths: '/home/{{ app_user }}/{{ project_dir }}/target/'
+          patterns: '*.jar'
+        register: jar
+        when: jar.changed
+
+      - name: Copy the jar file to the home folder
+        copy:
+          src: '{{ item.path }}'
+          dest: '/home/{{ app_user }}/'
+          owner: '{{ app_user }}'
+          group: '{{ app_user }}'
+          mode: u+x
+          remote_src: yes
+        with_items: '{{ jar.files }}'
+        when: mvnw.changed
+
+      - name: Сheck if the java application is running
+        shell: 'ps aux | grep -v grep | grep "java -jar"'
+        register: java_run_status
+        ignore_errors : true
+        changed_when: false
+
+      - name: Run application
+        shell: 'java -jar *.jar &'
+        args:
+          chdir: '/home/{{ app_user }}/'
+        become_user: '{{ app_user }}'
+        async: 1000
+        poll: 0
+        environment:
+          DB_HOST: '{{ db_host }}'
+          DB_USER: '{{ db_user }}'
+          DB_PASS: '{{ db_pass }}'
+          DB_NAME: '{{ db_name }}'
+          DB_PORT: '{{ db_port }}'
+        when: not java_run_status.stdout
+
+      - name: Get my public IP from ipify.org
+        ipify_facts:
+        register: public_ip
+
+      - name: Wait for the application to start
+        wait_for:
+          timeout: 60
+          host: '{{ public_ip.ansible_facts.ipify_public_ip }}'
+          port: 8080
+        when: not java_run_status.stdout
+
+      - name: Application healthcheck
+        uri:
+          url: "http://{{ public_ip.ansible_facts.ipify_public_ip }}:8080/manage/health"
+          return_content: yes
+        register: health
+
+      - name: Сheck if the application is running on the port 8080
+        debug: msg='The application is running'
+        when: health.json.status == "UP"
+
+      - name: URL to the web aplication
+        debug: msg='{{ public_ip.ansible_facts.ipify_public_ip }}:8080'
+        when: health.json.status == "UP"

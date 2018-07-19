@@ -1,0 +1,10 @@
+{
+    "PROJECT_DIR": "PetClinicProject",
+    "APP_USER": "petclinic",
+    "APP_PASS": "$1$ae5865d9$6fDUFSrGjX0WvCiTaNwMw/",
+    "DB_USER": "petclinic",
+    "DB_PASS": "demka",
+    "DB_NAME": "pc",
+    "DB_PORT": 3306,
+    "DB_REMOTE_USER_HOSTS": "10.0.10.%"
+}
